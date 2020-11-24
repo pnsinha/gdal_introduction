@@ -1,6 +1,6 @@
 # 1. GDAL Installation
 
-GDAL can be installed and run on Windows, OSX and Linux and there are different approaches based on your operating system. There is a list [here](https://gdal.org/download.html) that give a good list of options. 
+[GDAL](https://gdal.org) can be installed and run on Windows, OSX and Linux and there are different approaches based on your operating system. There is a list [here](https://gdal.org/download.html) that give a good list of options. 
 
 ## Installation
 
@@ -13,6 +13,24 @@ For this workshop we will use stable version and this can be download using the 
 | **Mac:**     | http://www.kyngchaos.com/software/frameworks/    echo 'export PATH=/Library/Frameworks/GDAL.framework/Programs:$PATH' >> ~/.bash_profile source ~/.bash_profile |
 | **Ubuntu:**  | sudo  apt-get install gdal-bin                               |
 
+### <a href="http://fwtools.maptools.org" target="_blank">FWTools</a>
+
+- FWTools includes OpenEV, GDAL, MapServer, PROJ.4 and OGDI as well as some supporting components.
+
+## GDAL Standalone
+GDAL is a set of command line utilities, so you need a shell to run them. 
+
+### Navigation in a Shell
+When specifying input and output files, the utility needs to know where the file is located on the filesystem. For this you have two options: either manually type out the full absolute path to each and every file you work with, or navigate to the folder containing your working files so you only need to type filenames.
+
+* To change to your home directory, type cd and press [Enter].
+* To change to a subdirectory, type cd, a space, and the name of the subdirectory (e.g., cd Documents) and then press [Enter].
+* To change to the current working directory’s parent directory, type cd followed by a space and two periods and then press [Enter].
+* To change to a directory specified by a path name, type cd followed by a space and the path name (e.g., cd /home/pnsinha/gdal) and then press [Enter].
+* To confirm that you've switched to the directory you wanted, type pwd and press [Enter]. You'll see the path name of the current directory.
+
+
+
 # 2. Getting Started
 
 ---
@@ -23,6 +41,7 @@ This workshop section will introduce some of the main GDAL utilities that you wi
 From the command line (terminal, PowerShell or command prompt) and making sure it shows the version you expect.
 
 A list of Utilities/Programs is found [here](https://gdal.org/programs/index.html) and they all have a different purpose and listed below are the most common.
+
 
 1. __ogr2ogr__ - for Vector spatial data this is the program that you will use to convert from one format to another, or changes it projection or query it directly using SQL
 2. __gdal_translate__ - this is the equivalent of ogr2ogr for Raster data. You can use this to do conversions from GeoTiff to ECW, change the compression or color palette.
@@ -48,6 +67,7 @@ In the list you will see the shorthand name of the supported formats and whether
 
 ## 2.1 GDALINFO
 ---
+One of the easiest and most useful commands in GDAL is gdalinfo. When given an image as an argument, it retrieves and prints all relevant information that is known about the file. This is especially useful if the image contains additional tag data, as is the case with TIF files. When working with satellite imagery, this is an extremely useful way of keeping track of the location of the images in long./lat. coordinates as well as the image projection.
 Now lets use gdalinfo on one of our files to find out the metadata on the file.
 
 Open the command prompt window in the Data/Raster folder where there are a number of images of Columbia at 100 meters resolution are saved. 
@@ -177,6 +197,10 @@ Projecting from GCS_WGS_1984 to EPSG:32644 (UTM 44N) .
 
 
 # 4. Raster Data
+The gdal_translate command gives us several options to modify raster images. gdal_translate can be used simply to change the size of an image using the -outsize parameter, which takes two integer values as the xsize and ysize respectively, or two percentage values to scale the image. 
+
+GDAL has the capability to change an images coordinate system. This is most easily done with a TIF file since the source image likely contains all of the relevant geographic data. The -t_srs parameter specifies the target coordinate system, If the source coordinate system is unknown it must be specified with the -s_srs parameter.
+
 
 
 ```gdalinfo lights.tif```
